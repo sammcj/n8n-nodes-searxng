@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+# cancel previous runs if a new one is triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
