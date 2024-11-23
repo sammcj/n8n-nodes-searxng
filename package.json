@@ -1,0 +1,70 @@
+{
+  "name": "n8n-nodes-searxng",
+  "version": "0.1.0",
+  "description": "n8n community node for SearXNG search engine",
+  "keywords": [
+    "n8n-community-node-package"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "author": {
+    "name": "Sam McLeod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sammcj/n8n-nodes-searxng.git"
+  },
+  "engines": {
+    "node": ">=18.10",
+    "pnpm": ">=9.1"
+  },
+  "packageManager": "pnpm@9.1.4",
+  "main": "index.js",
+  "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier credentials nodes --write",
+    "lint": "eslint **/*.ts package.json --no-warn-ignored",
+    "lintfix": "eslint **/*.ts package.json --fix --no-warn-ignored",
+    "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js **/*.ts package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/SearxngApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Searxng/Searxng.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@eslint/js": "9.15.0",
+    "@types/eslint": "9.6.1",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "globals": "15.12.0",
+    "gulp": "^5.0.0",
+    "n8n-workflow": "1.68.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "8.15.0"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  },
+  "eslintIgnore": [
+    "node_modules",
+    ".DS_Store",
+    ".tmp",
+    "tmp",
+    "dist",
+    "npm-debug.log*",
+    "yarn.lock",
+    ".vscode/launch.json"
+  ]
+}
