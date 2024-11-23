@@ -90,19 +90,19 @@ export class Searxng implements INodeType {
         description: "Categories to search in",
       },
       {
+        displayName: "Return Single Response",
+        name: "singleResponse",
+        type: "boolean",
+        default: false,
+        description: "Whether to return only the content from the first search result as a string",
+      },
+      {
         displayName: "Additional Fields",
         name: "additionalFields",
         type: "collection",
         placeholder: "Add Field",
         default: {},
         options: [
-          {
-            displayName: "Single Response",
-            name: "singleResponse",
-            type: "boolean",
-            default: false,
-            description: "Return only the content from the first search result as a string",
-          },
           {
             displayName: "Language",
             name: "language",
@@ -204,6 +204,7 @@ export class Searxng implements INodeType {
         }
 
         const categories = this.getNodeParameter("categories", i) as string[];
+        const singleResponse = this.getNodeParameter("singleResponse", i) as boolean;
         const additionalFields = this.getNodeParameter(
           "additionalFields",
           i,
@@ -213,7 +214,6 @@ export class Searxng implements INodeType {
           safesearch?: string;
           pageno?: number;
           format?: string;
-          singleResponse?: boolean;
         };
 
         const queryParameters: Record<string, string | number> = {
@@ -256,7 +256,7 @@ export class Searxng implements INodeType {
             }))
             : [];
 
-          if (additionalFields.singleResponse && formattedResults.length > 0) {
+          if (singleResponse && formattedResults.length > 0) {
             // Return only the content from the first result when singleResponse is enabled
             returnData.push({
               json: {
@@ -264,7 +264,7 @@ export class Searxng implements INodeType {
                 query,
                 answer: formattedResults[0].content || formattedResults[0].snippet,
               },
-            })
+            });
           } else {
             returnData.push({
               json: {
