@@ -1,0 +1,67 @@
+{
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "return [{ json: { query: 'test query' } }];"
+      },
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        450,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "query": "={{$node[\"Function\"].json[\"query\"]}}",
+        "categories": [
+          "general"
+        ],
+        "additionalFields": {}
+      },
+      "name": "Searxng",
+      "type": "searxng.searxng",
+      "typeVersion": 1,
+      "position": [
+        650,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Function": {
+      "main": [
+        [
+          {
+            "node": "Searxng",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

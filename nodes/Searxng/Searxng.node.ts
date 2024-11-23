@@ -168,7 +168,13 @@ export class Searxng implements INodeType {
       }
 
       for (let i = 0; i < items.length; i++) {
-        const query = this.getNodeParameter("query", i) as string;
+        let query: string
+        if (items[i].json && typeof items[i].json === 'object' && 'query' in items[i].json) {
+          query = items[i].json.query as string
+        } else {
+          query = this.getNodeParameter("query", i) as string
+        }
+
         const categories = this.getNodeParameter("categories", i) as string[];
         const additionalFields = this.getNodeParameter(
           "additionalFields",
