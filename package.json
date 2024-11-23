@@ -1,14 +1,16 @@
 {
   "name": "n8n-nodes-searxng",
-  "version": "0.1.3",
-  "description": "n8n community node for SearXNG search engine",
+  "version": "0.2.1",
+  "description": "n8n community node for SearXNG search engine with AI agent support",
   "keywords": [
     "n8n-community-node-package",
     "searxng",
     "sammcj",
     "search",
     "search-engine",
-    "n8n"
+    "n8n",
+    "ai",
+    "ai-agent"
   ],
   "license": "MIT",
   "homepage": "",
