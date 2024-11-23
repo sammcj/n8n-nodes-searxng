@@ -1,9 +1,14 @@
 {
   "name": "n8n-nodes-searxng",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "n8n community node for SearXNG search engine",
   "keywords": [
-    "n8n-community-node-package"
+    "n8n-community-node-package",
+    "searxng",
+    "sammcj",
+    "search",
+    "search-engine",
+    "n8n"
   ],
   "license": "MIT",
   "homepage": "",
