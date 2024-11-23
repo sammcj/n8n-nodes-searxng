@@ -34,7 +34,7 @@
     "format": "prettier credentials nodes --write",
     "lint": "eslint **/*.ts package.json --no-warn-ignored",
     "lintfix": "eslint **/*.ts package.json --fix --no-warn-ignored",
-    "bump-version": "npx standard-version",
+    "bump": "npx standard-version",
     "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js **/*.ts package.json"
   },
   "files": [

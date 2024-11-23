@@ -5,6 +5,7 @@ import {
   INodeTypeDescription,
   NodeOperationError,
   NodeConnectionType,
+  IDataObject,
 } from "n8n-workflow";
 
 export class Searxng implements INodeType {
@@ -35,6 +36,14 @@ export class Searxng implements INodeType {
         required: true,
       },
     ],
+    // Add AI tool metadata
+    codex: {
+      categories: ["Search", "Web"],
+      alias: ["web-search", "searxng", "search-engine"],
+      subcategories: {
+        search: ["Web Search", "Metasearch"],
+      },
+    },
     properties: [
       {
         displayName: "Operation",
@@ -59,6 +68,7 @@ export class Searxng implements INodeType {
         required: true,
         placeholder: "Enter search query",
         description: "The search query to perform",
+        hint: "Can be provided directly or via AI agent input",
       },
       {
         displayName: "Categories",
@@ -168,11 +178,22 @@ export class Searxng implements INodeType {
       }
 
       for (let i = 0; i < items.length; i++) {
+        // Enhanced input handling for AI compatibility
         let query: string
-        if (items[i].json && typeof items[i].json === 'object' && 'query' in items[i].json) {
-          query = items[i].json.query as string
+        const item = items[i].json as IDataObject
+
+        if (item) {
+          if (typeof item.query === 'string') {
+            query = item.query
+          } else if (typeof item.input === 'string') {
+            query = item.input
+          } else if (typeof item.prompt === 'string') {
+            query = item.prompt
+          } else {
+            query = this.getNodeParameter("query", i) as string
+          }
         } else {
-          query = this.getNodeParameter("query", i) as string
+          query = this.getNodeParameter("query", i) as string;
         }
 
         const categories = this.getNodeParameter("categories", i) as string[];
@@ -217,11 +238,27 @@ export class Searxng implements INodeType {
             },
           });
 
+          // Format output for AI compatibility
+          const formattedResults = Array.isArray(response.results)
+            ? response.results.map((result: any) => ({
+              title: result.title,
+              url: result.url,
+              content: result.content,
+              snippet: result.snippet || result.content,
+            }))
+            : [];
+
           returnData.push({
             json: {
               success: true,
               query,
-              ...response,
+              results: formattedResults,
+              metadata: {
+                total: response.number_of_results,
+                time: response.search_time,
+                engine: response.engine,
+              },
+              raw: response, // Include raw response for compatibility
             },
           });
         } catch (error) {
