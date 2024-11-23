@@ -97,6 +97,13 @@ export class Searxng implements INodeType {
         default: {},
         options: [
           {
+            displayName: "Single Response",
+            name: "singleResponse",
+            type: "boolean",
+            default: false,
+            description: "Return only the content from the first search result as a string",
+          },
+          {
             displayName: "Language",
             name: "language",
             type: "options",
@@ -206,6 +213,7 @@ export class Searxng implements INodeType {
           safesearch?: string;
           pageno?: number;
           format?: string;
+          singleResponse?: boolean;
         };
 
         const queryParameters: Record<string, string | number> = {
@@ -248,19 +256,30 @@ export class Searxng implements INodeType {
             }))
             : [];
 
-          returnData.push({
-            json: {
-              success: true,
-              query,
-              results: formattedResults,
-              metadata: {
-                total: response.number_of_results,
-                time: response.search_time,
-                engine: response.engine,
+          if (additionalFields.singleResponse && formattedResults.length > 0) {
+            // Return only the content from the first result when singleResponse is enabled
+            returnData.push({
+              json: {
+                success: true,
+                query,
+                answer: formattedResults[0].content || formattedResults[0].snippet,
               },
-              raw: response, // Include raw response for compatibility
-            },
-          });
+            })
+          } else {
+            returnData.push({
+              json: {
+                success: true,
+                query,
+                results: formattedResults,
+                metadata: {
+                  total: response.number_of_results,
+                  time: response.search_time,
+                  engine: response.engine,
+                },
+                raw: response, // Include raw response for compatibility
+              },
+            });
+          }
         } catch (error) {
           if (this.continueOnFail()) {
             returnData.push({
