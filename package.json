@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-searxng",
-  "version": "0.1.2",
+  "version": "0.1.1",
   "description": "n8n community node for SearXNG search engine",
   "keywords": [
     "n8n-community-node-package"
@@ -27,6 +27,7 @@
     "format": "prettier credentials nodes --write",
     "lint": "eslint **/*.ts package.json --no-warn-ignored",
     "lintfix": "eslint **/*.ts package.json --fix --no-warn-ignored",
+    "bump-version": "npx standard-version",
     "prepublishOnly": "pnpm build && pnpm lint -c .eslintrc.prepublish.js **/*.ts package.json"
   },
   "files": [
