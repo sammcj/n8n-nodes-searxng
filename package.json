@@ -22,10 +22,10 @@
     "url": "https://github.com/sammcj/n8n-nodes-searxng.git"
   },
   "engines": {
-    "node": ">=18.10",
-    "pnpm": ">=9.1"
+    "node": ">=18.20.5",
+    "pnpm": ">=9.14.2"
   },
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@9.14.2",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
