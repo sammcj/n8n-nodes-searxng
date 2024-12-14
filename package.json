@@ -22,10 +22,10 @@
     "url": "https://github.com/sammcj/n8n-nodes-searxng.git"
   },
   "engines": {
-    "node": ">=18.10",
-    "pnpm": ">=9.1"
+    "node": ">=18.20.5",
+    "pnpm": ">=9.15.0"
   },
-  "packageManager": "pnpm@9.1.4",
+  "packageManager": "pnpm@9.15.0",
   "main": "index.js",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -50,17 +50,17 @@
     ]
   },
   "devDependencies": {
-    "@eslint/js": "9.15.0",
+    "@eslint/js": "9.16.0",
     "@types/eslint": "9.6.1",
-    "@typescript-eslint/parser": "^8.15.0",
+    "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^8.57.1",
     "eslint-plugin-n8n-nodes-base": "^1.16.3",
-    "globals": "15.12.0",
+    "globals": "15.13.0",
     "gulp": "^5.0.0",
-    "n8n-workflow": "1.68.0",
-    "prettier": "^3.3.3",
+    "n8n-workflow": "1.70.0",
+    "prettier": "^3.4.2",
     "typescript": "^5.7.2",
-    "typescript-eslint": "8.15.0"
+    "typescript-eslint": "8.18.0"
   },
   "peerDependencies": {
     "n8n-workflow": "*"
