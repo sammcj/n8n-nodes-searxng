@@ -30,6 +30,7 @@ export class Searxng implements INodeType {
         type: NodeConnectionType.Main,
       },
     ],
+    usableAsTool: true,
     credentials: [
       {
         name: "searxngApi",

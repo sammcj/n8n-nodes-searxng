@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-searxng",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "n8n community node for SearXNG search engine with AI agent support",
   "keywords": [
     "n8n-community-node-package",
